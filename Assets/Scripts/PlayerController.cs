@@ -18,6 +18,12 @@ public class PlayerController : MonoBehaviour
     float x = 0;
     float z = 0;
     float gravity = -9.8f;
+    Animator _animator;
+
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -43,6 +49,16 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         _characterController.Move(velocity * Time.deltaTime);
+
+        if(Input.GetKey("w"))
+        {
+            _animator.SetBool("isMoving", true);
+        }
+
+        else if(!Input.GetKey("w"))
+        {
+            _animator.SetBool("isMoving", false);
+        }
     }
 
 }
