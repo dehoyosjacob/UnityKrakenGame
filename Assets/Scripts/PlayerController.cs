@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     float z = 0;
     float gravity = -9.8f;
     Animator _animator;
+    public HealthBar _healthBar;
 
     private void Start()
     {
@@ -58,6 +60,12 @@ public class PlayerController : MonoBehaviour
         else if(!Input.GetKey("w"))
         {
             _animator.SetBool("isMoving", false);
+        }
+
+        if(Input.GetKeyDown("e"))
+        {
+            _healthBar.TakeDamage(5);
+            
         }
     }
 
