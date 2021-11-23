@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpHeight = 0;
     [SerializeField] LayerMask groundMask;
     [SerializeField] CharacterController _characterController;
+    [SerializeField] Text comboCounter;
 
 
     bool isGrounded = false;
@@ -21,10 +22,12 @@ public class PlayerController : MonoBehaviour
     float gravity = -9.8f;
     Animator _animator;
     public HealthBar _healthBar;
+    int currentCombo = 0;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
+        currentCombo = 0;
     }
 
     private void Update()
@@ -67,6 +70,13 @@ public class PlayerController : MonoBehaviour
             _healthBar.TakeDamage(5);
             
         }
+
+        if(Input.GetKeyDown("q"))
+        {
+            currentCombo++;
+        }
+
+        comboCounter.text = "x" + currentCombo.ToString();
     }
 
 }
