@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpHeight = 0;
     [SerializeField] LayerMask groundMask;
     [SerializeField] CharacterController _characterController;
-
+    [SerializeField] Text comboCounter;
 
     bool isGrounded = false;
     Vector3 velocity;
@@ -20,11 +20,16 @@ public class PlayerController : MonoBehaviour
     float z = 0;
     float gravity = -9.8f;
     Animator _animator;
+    int currentCombo = 0;
+
     public HealthBar _healthBar;
+    public levelController _levelController;
+    public FocusBar _focusBar;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
+        currentCombo = 0;
     }
 
     private void Update()
@@ -67,6 +72,29 @@ public class PlayerController : MonoBehaviour
             _healthBar.TakeDamage(5);
             
         }
+
+        if(Input.GetKeyDown("q"))
+        {
+            currentCombo++;
+        }
+
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            //_levelController.ActivateFocusBarFull();
+            _focusBar.IncreaseFocus(2);
+        }
+
+        if(Input.GetKeyDown("r"))
+        {
+            _focusBar.EmptyFocus();
+        }
+
+        if(Input.GetKeyDown("f"))
+        {
+            _levelController.ToggleGadgetSlots();
+        }
+
+        comboCounter.text = "x" + currentCombo.ToString();
     }
 
 }
