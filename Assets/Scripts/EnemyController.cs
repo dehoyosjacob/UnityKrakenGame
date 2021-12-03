@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] float speed = 0;
+    public float speed = 0;
     [SerializeField] Transform player;
 
     float distanceToPlayer = 0;
@@ -22,11 +22,11 @@ public class EnemyController : MonoBehaviour
 
         _animator.SetBool("isMoving", false);
 
-        if(distanceToPlayer <= 40)
+        if(distanceToPlayer <= 20 && speed > 0)
         {
             transform.LookAt(player);
 
-            if(distanceToPlayer > 1.5)
+            if(distanceToPlayer > 3 && speed > 0)
             {
                 _animator.SetBool("isMoving", true);
 

@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public HealthBar _healthBar;
     public levelController _levelController;
     public FocusBar _focusBar;
+    public GadgetControllers _gadgetController;
 
     private void Start()
     {
@@ -78,7 +79,9 @@ public class PlayerController : MonoBehaviour
             currentCombo++;
         }
 
-        if(Input.GetKeyDown(KeyCode.LeftShift))
+        comboCounter.text = "x" + currentCombo.ToString();
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             //_levelController.ActivateFocusBarFull();
             _focusBar.IncreaseFocus(2);
@@ -89,12 +92,27 @@ public class PlayerController : MonoBehaviour
             _focusBar.EmptyFocus();
         }
 
-        if(Input.GetKeyDown("f"))
+        if (Input.GetKeyDown("f"))
         {
-            _levelController.ToggleGadgetSlots();
+            //_levelController.ToggleGadgetSlots();
+
+            if (_levelController.slotsAvailable > 0)
+            {
+                _gadgetController.FireGadget();
+                _levelController.slotsAvailable--;
+            }
+
+            else if(_levelController.slotsAvailable <= 0)
+            {
+                Debug.Log("Out of slots!");
+            }
         }
 
-        comboCounter.text = "x" + currentCombo.ToString();
+        if (Input.GetKeyDown("v"))
+        {
+            _gadgetController.ToggleGadgets();
+            _levelController.slotsAvailable = 4;
+        }
     }
 
 }
